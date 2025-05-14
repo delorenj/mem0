@@ -13,8 +13,9 @@ services:
     ports:
       - "8765:8765"
     volumes:
-      - .:/usr/src/openmemory
+      - memories:/usr/src/openmemory
     extra_hosts:
       - "host.docker.internal:host-gateway"
-    command: >
-      sh -c "bash /usr/src/openmemory/install_ollama.sh && uvicorn main:app --host 0.0.0.0 --port 8765 --reload --workers 4"
+
+volumes:
+  memories:
