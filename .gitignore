@@ -186,5 +186,5 @@ eval/
 qdrant_storage/
 .crossnote
 testing.ipynb
-
+logs/
 **/.claude/settings.local.json

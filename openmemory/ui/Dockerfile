@@ -28,7 +28,6 @@ COPY --from=deps /app/pnpm-lock.yaml ./pnpm-lock.yaml
 COPY . .
 
 RUN cp next.config.dev.mjs next.config.mjs
-RUN cp .env.dev .env
 
 RUN pnpm build
 
@@ -54,9 +53,9 @@ RUN chmod +x /home/nextjs/entrypoint.sh
 # Switch to non-root user
 USER nextjs
 
-EXPOSE 3000
-ENV PORT=3000
+EXPOSE $PORT
+ENV PORT=$PORT
 ENV HOSTNAME="0.0.0.0"
 
 ENTRYPOINT ["/home/nextjs/entrypoint.sh"]
-CMD ["node", "server.js"]
+CMD ["pnpm", "start"]

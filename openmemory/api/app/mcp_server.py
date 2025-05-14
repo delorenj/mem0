@@ -22,9 +22,9 @@ load_dotenv()
 # Initialize MCP and memory client
 mcp = FastMCP("mem0-mcp-server")
 
-# Check if OpenAI API key is set
-if not os.getenv("OPENAI_API_KEY"):
-    raise Exception("OPENAI_API_KEY is not set in .env file")
+# Check if OpenRouter API key is set
+if not os.getenv("OPENROUTER_API_KEY"):
+    raise Exception("OPENROUTER_API_KEY is not set in .env file")
 
 memory_client = get_memory_client()
 

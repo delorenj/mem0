@@ -33,6 +33,9 @@ def get_memory_client(custom_instructions: str = None):
         qdrant_host = os.getenv("QDRANT_HOST", "host.docker.internal")
         qdrant_port = int(os.getenv("QDRANT_PORT", "6333"))
         
+        # Get LLM model from environment or use default
+        llm_model = os.getenv("OPENROUTER_MODEL", "deepseek/deepseek-chat")
+        
         config = {
             "vector_store": {
                 "provider": "qdrant",
@@ -44,11 +47,11 @@ def get_memory_client(custom_instructions: str = None):
                 }
             },
             "llm": {
-                "provider": "deepseek",
+                "provider": "openrouter",
                 "config": {
-                    "model": "deepseek-chat-v3",
-                    "api_key": os.getenv("DEEPSEEK_API_KEY", os.getenv("OPENROUTER_API_KEY")),
-                    "deepseek_base_url": "https://api.deepseek.com",
+                    "model": llm_model,
+                    "api_key": os.getenv("OPENROUTER_API_KEY"),
+                    "base_url": "https://openrouter.ai/api/v1",
                     "temperature": 0.7,
                     "max_tokens": 4096
                 }

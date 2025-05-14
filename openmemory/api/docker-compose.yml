@@ -1,21 +1,26 @@
 services:
   api:
+    container_name: openmemory-api
     image: mem0/openmemory-mcp
     build: .
     environment:
-      - OPENAI_API_KEY
-      - USER
-      - QDRANT_HOST=host.docker.internal
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - USER=${OPENMEMORY_USER}
+      - QDRANT_HOST=http://localhost
       - QDRANT_PORT=6333
       - OLLAMA_NO_INTERACTIVE=1
     env_file:
       - .env
     ports:
-      - "8765:8765"
+      - "${OPENMEMORY_API_PORT:-8765}:8765"
     volumes:
       - memories:/usr/src/openmemory
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+    networks:
+      - proxy
 
 volumes:
   memories:
+
+networks:
+  proxy:
+    external: true

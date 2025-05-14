@@ -1,13 +1,15 @@
 services:
   frontend:
+    container_name: openmemory-ui
     build:
       context: .
       dockerfile: Dockerfile
     image: mem0/openmemory-ui:latest
     ports:
-      - "3000:3000"
+      - "${OPENMEMORY_UI_PORT:-3000}:3000"
     env_file:
       - .env
     environment:
-      - NEXT_PUBLIC_API_URL=NEXT_PUBLIC_API_URL
-      - NEXT_PUBLIC_USER_ID=NEXT_PUBLIC_USER_ID
+      - PORT={OPENMEMORY_UI_PORT:-3000}
+      - NEXT_PUBLIC_API_URL=http://${OPENMEMORY_API_HOST:-host.docker.internal}:${OPENMEMORY_API_PORT:-8765}
+      - NEXT_PUBLIC_USER_ID=${OPENMEMORY_USER:-default_user}
