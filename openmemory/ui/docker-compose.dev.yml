@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  ui:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    environment:
+      - NEXT_PUBLIC_USER_ID=delorenj
+      - NEXT_PUBLIC_API_URL=http://host.docker.internal:8765
+    ports:
+      - "3000:3000"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

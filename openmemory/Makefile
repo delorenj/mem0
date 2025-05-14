@@ -60,11 +60,14 @@ ui-build:
 	cd ui && pnpm build
 
 ui-start:
-	cd ui && NEXT_PUBLIC_USER_ID=$(USER) NEXT_PUBLIC_API_URL=$(NEXT_PUBLIC_API_URL) pnpm start
+	cd ui && NEXT_PUBLIC_USER_ID=$(USER) NEXT_PUBLIC_API_URL=$(NEXT_PUBLIC_API_URL) HOST=0.0.0.0 pnpm start
 
 ui-dev-start:
-	cd ui && NEXT_PUBLIC_USER_ID=$(USER) NEXT_PUBLIC_API_URL=$(NEXT_PUBLIC_API_URL) && pnpm dev
+	cd ui && NEXT_PUBLIC_USER_ID=$(USER) NEXT_PUBLIC_API_URL=$(NEXT_PUBLIC_API_URL) HOST=0.0.0.0 pnpm dev
 
 ui-dev: ui-install ui-dev-start
+
+ui-docker:
+	cd ui && docker-compose -f docker-compose.dev.yml up --build
 
 ui: ui-install ui-build ui-start
